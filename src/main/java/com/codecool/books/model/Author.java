@@ -1,6 +1,6 @@
 package com.codecool.books.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Author {
     private int id = -1;
@@ -49,7 +49,7 @@ public class Author {
 
     @Override
     public String toString() {
-        return String.format("Author<%d: %s %s %s>",
+        return String.format("Author #%d: %s %s %s",
                 id, firstName, lastName, birthDate);
     }
 }

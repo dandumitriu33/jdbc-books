@@ -15,7 +15,7 @@ public class UserInterface {
     }
 
     public void printTitle(String title) {
-        out.println(title);
+        out.println("\n -- " + title + " --");
     }
 
     public void printOption(char option, String description) {

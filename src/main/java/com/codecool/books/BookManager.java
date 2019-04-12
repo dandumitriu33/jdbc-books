@@ -30,20 +30,69 @@ public class BookManager {
             ui.printTitle("Main Menu");
             ui.printOption('l', "list authors");
             ui.printOption('a', "add author");
+            ui.printOption('e', "edit author");
             ui.printOption('d', "delete author");
             ui.printOption('q', "quit");
 
-            switch (ui.choice("ladq")) {
+            switch (ui.choice("laedq")) {
                 case 'l':
-                    for (Author author: authorDao.getAll()) {
-                        System.out.println(author);
-                    }
+                    listAuthors();
+                    break;
+                case 'a':
+                    addAuthor();
+                    break;
+                case 'e':
+                    editAuthor();
+                    break;
+                case 'd':
+                    deleteAuthor();
                     break;
                 case 'q':
                     running = false;
                     break;
             }
         }
+    }
+
+    private void addAuthor() {
+        String firstName = ui.readString("First name", "X");
+        String lastName = ui.readString("Last name", "Y");
+        Date birthDate = ui.readDate("Birth date", Date.valueOf("1900-01-01"));
+        authorDao.save(new Author(firstName, lastName, birthDate));
+    }
+
+    private void listAuthors() {
+        for (Author author: authorDao.getAll()) {
+            System.out.println(author);
+        }
+    }
+
+    private void editAuthor() {
+        int id = ui.readInt("Author ID", 0);
+        Author author = authorDao.get(id);
+        if (author == null) {
+            System.out.println("Author not found!");
+            return;
+        }
+        System.out.println(author);
+
+        String firstName = ui.readString("First name", author.getFirstName());
+        String lastName = ui.readString("Last name", author.getLastName());
+        Date birthDate = ui.readDate("Birth date", author.getBirthDate());
+        author.setFirstName(firstName);
+        author.setLastName(lastName);
+        author.setBirthDate(birthDate);
+        authorDao.save(author);
+    }
+
+    private void deleteAuthor() {
+        int id = ui.readInt("Author ID", 0);
+        Author author = authorDao.get(id);
+        if (author == null) {
+            System.out.println("Author not found!");
+            return;
+        }
+        authorDao.delete(author);
     }
 
     public static void main(String[] args) {

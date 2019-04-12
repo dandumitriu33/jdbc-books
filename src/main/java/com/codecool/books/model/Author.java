@@ -3,6 +3,7 @@ package com.codecool.books.model;
 import java.sql.Date;
 
 public class Author {
+    // -1 means not saved
     private int id = -1;
 
     private String firstName;
@@ -49,7 +50,7 @@ public class Author {
 
     @Override
     public String toString() {
-        return String.format("Author #%d: %s %s %s",
+        return String.format("Author %d: %s %s %s",
                 id, firstName, lastName, birthDate);
     }
 }

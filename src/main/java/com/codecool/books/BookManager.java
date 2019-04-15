@@ -24,22 +24,22 @@ public class BookManager extends Manager {
     @Override
     protected void list() {
         for (Book book: bookDao.getAll()) {
-            System.out.println(book);
+            ui.println(book);
         }
     }
 
     @Override
     protected void add() {
-        System.out.println("Authors:");
+        ui.println("Authors:");
         for (Author author: authorDao.getAll()) {
-            System.out.println(author);
+            ui.println(author);
         }
         int authorId = ui.readInt("Author ID", 0);
         String title = ui.readString("Title", "Z");
 
         Author author = authorDao.get(authorId);
         if (author == null) {
-            System.out.println("Author not found!");
+            ui.println("Author not found!");
             return;
         }
 
@@ -51,14 +51,14 @@ public class BookManager extends Manager {
         int id = ui.readInt("Book ID", 0);
         Book book = bookDao.get(id);
         if (book == null) {
-            System.out.println("Book not found!");
+            ui.println("Book not found!");
             return;
         }
-        System.out.println(book);
+        ui.println(book);
 
-        System.out.println("Authors:");
+        ui.println("Authors:");
         for (Author author: authorDao.getAll()) {
-            System.out.println(author);
+            ui.println(author);
         }
 
         int authorId = ui.readInt("Author ID", book.getAuthor().getId());
@@ -66,7 +66,7 @@ public class BookManager extends Manager {
 
         Author author = authorDao.get(authorId);
         if (author == null) {
-            System.out.println("Author not found!");
+            ui.println("Author not found!");
             return;
         }
 
@@ -80,7 +80,7 @@ public class BookManager extends Manager {
         int id = ui.readInt("Book ID", 0);
         Book book = bookDao.get(id);
         if (book == null) {
-            System.out.println("Book not found!");
+            ui.println("Book not found!");
             return;
         }
         bookDao.delete(book);

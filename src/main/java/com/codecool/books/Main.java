@@ -51,14 +51,14 @@ public class Main {
         ui.printOption('s', "SQL database");
         switch (ui.choice("is")) {
             case 'i':
-                System.out.println("Using in-memory database");
+                ui.println("Using in-memory database");
                 authorDao = new AuthorDaoInMemory();
                 bookDao = new BookDaoInMemory();
                 createInitialData();
                 break;
             case 's':
                 // TODO: connection parameters
-                System.out.println("Connecting to SQL database");
+                ui.println("Connecting to SQL database");
                 String url = "jdbc:postgresql:books";
                 Connection conn = DriverManager.getConnection(url, "pawel", "pawel");
                 authorDao = new AuthorDaoSql(conn);
@@ -69,7 +69,7 @@ public class Main {
 
 
     private void createInitialData() {
-        System.out.println("Creating initial data");
+        ui.println("Creating initial data");
 
         Author author1 = new Author("J.R.R.", "Tolkien", Date.valueOf("1982-01-03"));
         Author author2 = new Author("Douglas", "Adams", Date.valueOf("1952-03-11"));

@@ -35,7 +35,7 @@ public class AuthorManager extends Manager {
     @Override
     protected void list() {
         for (Author author: authorDao.getAll()) {
-            System.out.println(author);
+            ui.println(author);
         }
     }
 
@@ -44,10 +44,10 @@ public class AuthorManager extends Manager {
         int id = ui.readInt("Author ID", 0);
         Author author = authorDao.get(id);
         if (author == null) {
-            System.out.println("Author not found!");
+            ui.println("Author not found!");
             return;
         }
-        System.out.println(author);
+        ui.println(author);
 
         String firstName = ui.readString("First name", author.getFirstName());
         String lastName = ui.readString("Last name", author.getLastName());
@@ -63,7 +63,7 @@ public class AuthorManager extends Manager {
         int id = ui.readInt("Author ID", 0);
         Author author = authorDao.get(id);
         if (author == null) {
-            System.out.println("Author not found!");
+            ui.println("Author not found!");
             return;
         }
         authorDao.delete(author);

@@ -15,6 +15,10 @@ public class UserInterface {
         this.out = out;
     }
 
+    public void println(Object obj) {
+        out.println(obj);
+    }
+
     public void printTitle(String title) {
         out.println("\n -- " + title + " --");
     }

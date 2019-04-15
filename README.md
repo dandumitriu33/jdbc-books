@@ -47,9 +47,9 @@ Make sure the program can connect to the Postgres database (run `Main` class and
 
 ## 3. Implement SQL DAO
 
-Implement the `AuthorDaoSql` class, so that the methods run SQL queries. Make sure the program works with the SQL database 
+Implement the `AuthorDaoSql` class, so that the methods run SQL queries. Make sure the program works when you select the SQL database from menu.
 
-The [JDBC tutorial](https://www.tutorialspoint.com/jdbc/) should help.
+See the JDBC tutorials linked at the end of this document for details.
 
 ## 4. Add Books
 
@@ -65,8 +65,9 @@ There is some skeleton code for Books (e.g. initial data) written and commented 
 
 You will need to create appropriate classes. Start with an in-memory DAO, then add SQL support. You will need to add an appropriate table to `books.sql`, then reload it in Postgres.
 
-## Further reading
+## Links
 
 * [Object-relational mapping](https://en.wikipedia.org/wiki/Object-relational_mapping) 
 * [Java DAO pattern](https://www.baeldung.com/java-dao-pattern)
-* [JDBC tutorial](https://www.tutorialspoint.com/jdbc/)
+* [JDBC basics](https://docs.oracle.com/javase/tutorial/jdbc/basics/index.html) from Oracle
+* [JDBC tutorial](https://www.tutorialspoint.com/jdbc/) at tutorialspoint.com

@@ -51,7 +51,7 @@ public class BookManager extends Manager {
         int id = ui.readInt("Book ID", 0);
         Book book = bookDao.get(id);
         if (book == null) {
-            System.out.println("Author not found!");
+            System.out.println("Book not found!");
             return;
         }
         System.out.println(book);

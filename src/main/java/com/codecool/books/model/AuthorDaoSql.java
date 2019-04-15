@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AuthorDaoSql implements AuthorDao {
-    Connection conn;
+    private Connection conn;
 
     public AuthorDaoSql(Connection conn) {
         this.conn = conn;

@@ -62,6 +62,7 @@ public class Main {
                 String url = "jdbc:postgresql:books";
                 Connection conn = DriverManager.getConnection(url, "pawel", "pawel");
                 authorDao = new AuthorDaoSql(conn);
+                bookDao = new BookDaoSql(conn, authorDao);
                 break;
         }
     }

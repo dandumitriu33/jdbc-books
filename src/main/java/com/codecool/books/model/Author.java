@@ -3,8 +3,8 @@ package com.codecool.books.model;
 import java.sql.Date;
 
 public class Author {
-    // -1 means not saved
-    private int id = -1;
+    // null means not saved
+    private Integer id;
 
     private String firstName;
     private String lastName;
@@ -16,11 +16,11 @@ public class Author {
         this.birthDate = birthDate;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

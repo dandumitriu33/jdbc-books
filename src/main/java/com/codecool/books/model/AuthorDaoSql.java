@@ -14,7 +14,7 @@ public class AuthorDaoSql implements AuthorDao {
     @Override
     public void save(Author author) {
         try {
-            if (author.getId() == -1) {
+            if (author.getId() == null) {
                 String sql = "INSERT INTO author (first_name, last_name, birth_date) VALUES (?, ?, ?)";
                 PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 st.setString(1, author.getFirstName());

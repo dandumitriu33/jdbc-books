@@ -8,7 +8,7 @@ public class AuthorDaoInMemory implements AuthorDao {
 
     @Override
     public void save(Author author) {
-        if (author.getId() == -1) {
+        if (author.getId() == null) {
             author.setId(idCounter);
             idCounter++;
         }

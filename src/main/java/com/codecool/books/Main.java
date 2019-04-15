@@ -1,9 +1,6 @@
 package com.codecool.books;
 
-import com.codecool.books.model.Author;
-import com.codecool.books.model.AuthorDao;
-import com.codecool.books.model.AuthorDaoInMemory;
-import com.codecool.books.model.AuthorDaoSql;
+import com.codecool.books.model.*;
 import com.codecool.books.view.UserInterface;
 
 import java.sql.Connection;
@@ -19,6 +16,7 @@ public class Main {
 
     UserInterface ui;
     AuthorDao authorDao;
+    BookDao bookDao;
 
     Main(UserInterface ui) {
         this.ui = ui;
@@ -39,6 +37,7 @@ public class Main {
                     new AuthorManager(ui, authorDao).run();
                     break;
                 case 'b':
+                    new BookManager(ui, bookDao, authorDao).run();
                     break;
                 case 'q':
                     running = false;
@@ -52,8 +51,9 @@ public class Main {
         ui.printOption('s', "SQL database");
         switch (ui.choice("is")) {
             case 'i':
-                authorDao = new AuthorDaoInMemory();
                 System.out.println("Using in-memory database");
+                authorDao = new AuthorDaoInMemory();
+                bookDao = new BookDaoInMemory();
                 createInitialData();
                 break;
             case 's':
@@ -69,10 +69,23 @@ public class Main {
 
     private void createInitialData() {
         System.out.println("Creating initial data");
-        authorDao.save(new Author("J.R.R.", "Tolkien", Date.valueOf("1982-01-03")));
-        authorDao.save(new Author("Douglas", "Adams", Date.valueOf("1952-03-11")));
-        authorDao.save(new Author("George R. R.", "Martin", Date.valueOf("1948-09-20")));
-        authorDao.save(new Author("Frank", "Herbert", Date.valueOf("1920-10-08")));
+
+        Author author1 = new Author("J.R.R.", "Tolkien", Date.valueOf("1982-01-03"));
+        Author author2 = new Author("Douglas", "Adams", Date.valueOf("1952-03-11"));
+        Author author3 = new Author("George R. R.", "Martin", Date.valueOf("1948-09-20"));
+        Author author4 = new Author("Frank", "Herbert", Date.valueOf("1920-10-08"));
+
+        authorDao.save(author1);
+        authorDao.save(author2);
+        authorDao.save(author3);
+        authorDao.save(author4);
+
+        bookDao.save(new Book(author1, "Hobbit"));
+        bookDao.save(new Book(author1, "Lord of the Rings"));
+        bookDao.save(new Book(author2, "Hitchhiker's Guide to the Galaxy"));
+        bookDao.save(new Book(author3, "A Game of Thrones"));
+        bookDao.save(new Book(author3, "Tuf Voyaging"));
+        bookDao.save(new Book(author4, "Dune"));
     }
 
 }

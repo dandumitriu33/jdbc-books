@@ -1,0 +1,48 @@
+package com.codecool.books;
+
+import com.codecool.books.view.UserInterface;
+
+public abstract class Manager {
+    protected UserInterface ui;
+
+    public Manager(UserInterface ui) {
+        this.ui = ui;
+    }
+
+    public void run() {
+        boolean running = true;
+
+        while (running) {
+            ui.printTitle(getName());
+            ui.printOption('l', "List");
+            ui.printOption('a', "Add");
+            ui.printOption('e', "Edit");
+            ui.printOption('d', "Delete");
+            ui.printOption('q', "Quit");
+
+            switch (ui.choice("laedq")) {
+                case 'l':
+                    list();
+                    break;
+                case 'a':
+                    add();
+                    break;
+                case 'e':
+                    edit();
+                    break;
+                case 'd':
+                    delete();
+                    break;
+                case 'q':
+                    running = false;
+                    break;
+            }
+        }
+    }
+
+    protected abstract String getName();
+    protected abstract void list();
+    protected abstract void add();
+    protected abstract void edit();
+    protected abstract void delete();
+}

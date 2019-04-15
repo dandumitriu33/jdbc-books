@@ -11,40 +11,26 @@ import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class BookManager {
+public class AuthorManager {
 
     UserInterface ui;
     AuthorDao authorDao;
 
-    public BookManager() {
-        ui = new UserInterface(System.in, System.out);
+    public AuthorManager(UserInterface ui, AuthorDao authorDao) {
+        this.ui = ui;
+        this.authorDao = authorDao;
     }
 
-    public void run() throws SQLException {
-        ui.printOption('i', "In-memory database");
-        ui.printOption('s', "SQL database");
-        switch (ui.choice("is")) {
-            case 'i':
-                authorDao = new AuthorDaoInMemory();
-                createInitialData();
-                break;
-            case 's':
-                // TODO: connection parameters
-                String url = "jdbc:postgresql:books";
-                Connection conn = DriverManager.getConnection(url, "pawel", "pawel");
-                authorDao = new AuthorDaoSql(conn);
-                break;
-        }
-
+    public void run() {
         boolean running = true;
 
         while (running) {
-            ui.printTitle("Main Menu");
-            ui.printOption('l', "list authors");
-            ui.printOption('a', "add author");
-            ui.printOption('e', "edit author");
-            ui.printOption('d', "delete author");
-            ui.printOption('q', "quit");
+            ui.printTitle("Author Manager");
+            ui.printOption('l', "List authors");
+            ui.printOption('a', "Add author");
+            ui.printOption('e', "Edit author");
+            ui.printOption('d', "Delete author");
+            ui.printOption('q', "Quit");
 
             switch (ui.choice("laedq")) {
                 case 'l':
@@ -64,13 +50,6 @@ public class BookManager {
                     break;
             }
         }
-    }
-
-    private void createInitialData() {
-        authorDao.save(new Author("J.R.R.", "Tolkien", Date.valueOf("1982-01-03")));
-        authorDao.save(new Author("Douglas", "Adams", Date.valueOf("1952-03-11")));
-        authorDao.save(new Author("George R. R.", "Martin", Date.valueOf("1948-09-20")));
-        authorDao.save(new Author("Frank", "Herbert", Date.valueOf("1920-10-08")));
     }
 
     private void addAuthor() {
@@ -112,9 +91,5 @@ public class BookManager {
             return;
         }
         authorDao.delete(author);
-    }
-
-    public static void main(String[] args) throws SQLException {
-        new BookManager().run();
     }
 }

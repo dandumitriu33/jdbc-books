@@ -14,25 +14,30 @@ public class BookDaoSql implements BookDao {
     }
 
     @Override
-    public void save(Book book) {
+    public void add(Book book) {
         try {
-            if (book.getId() == null) {
-                String sql = "INSERT INTO book (author_id, title) VALUES (?, ?)";
-                PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-                st.setInt(1, book.getAuthor().getId());
-                st.setString(2, book.getTitle());
-                st.executeUpdate();
-                ResultSet rs = st.getGeneratedKeys();
-                rs.next();
-                book.setId(rs.getInt(1));
-            } else {
-                String sql = "UPDATE book SET author_id = ?, title = ? WHERE id = ?";
-                PreparedStatement st = conn.prepareStatement(sql);
-                st.setInt(1, book.getAuthor().getId());
-                st.setString(2, book.getTitle());
-                st.setInt(3, book.getId());
-                st.executeUpdate();
-            }
+            String sql = "INSERT INTO book (author_id, title) VALUES (?, ?)";
+            PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            st.setInt(1, book.getAuthor().getId());
+            st.setString(2, book.getTitle());
+            st.executeUpdate();
+            ResultSet rs = st.getGeneratedKeys();
+            rs.next();
+            book.setId(rs.getInt(1));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void update(Book book) {
+        try {
+            String sql = "UPDATE book SET author_id = ?, title = ? WHERE id = ?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setInt(1, book.getAuthor().getId());
+            st.setString(2, book.getTitle());
+            st.setInt(3, book.getId());
+            st.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

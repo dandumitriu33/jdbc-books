@@ -7,11 +7,14 @@ public class BookDaoInMemory implements BookDao {
     int idCounter = 0;
 
     @Override
-    public void save(Book book) {
-        if (book.getId() == null) {
-            book.setId(idCounter);
-            idCounter++;
-        }
+    public void add(Book book) {
+        book.setId(idCounter);
+        idCounter++;
+        books.put(book.getId(), book);
+    }
+
+    @Override
+    public void update(Book book) {
         books.put(book.getId(), book);
     }
 

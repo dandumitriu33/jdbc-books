@@ -7,11 +7,14 @@ public class AuthorDaoInMemory implements AuthorDao {
     int idCounter = 0;
 
     @Override
-    public void save(Author author) {
-        if (author.getId() == null) {
-            author.setId(idCounter);
-            idCounter++;
-        }
+    public void add(Author author) {
+        author.setId(idCounter);
+        idCounter++;
+        authors.put(author.getId(), author);
+    }
+
+    @Override
+    public void update(Author author) {
         authors.put(author.getId(), author);
     }
 

@@ -24,7 +24,7 @@ public class AuthorManager extends Manager {
         String firstName = ui.readString("First name", "X");
         String lastName = ui.readString("Last name", "Y");
         Date birthDate = ui.readDate("Birth date", Date.valueOf("1900-01-01"));
-        authorDao.save(new Author(firstName, lastName, birthDate));
+        authorDao.add(new Author(firstName, lastName, birthDate));
     }
 
     @Override
@@ -55,7 +55,7 @@ public class AuthorManager extends Manager {
         author.setFirstName(firstName);
         author.setLastName(lastName);
         author.setBirthDate(birthDate);
-        authorDao.save(author);
+        authorDao.update(author);
     }
 
     @Override

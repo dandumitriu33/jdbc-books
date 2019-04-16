@@ -76,17 +76,17 @@ public class Main {
         Author author3 = new Author("George R. R.", "Martin", Date.valueOf("1948-09-20"));
         Author author4 = new Author("Frank", "Herbert", Date.valueOf("1920-10-08"));
 
-        authorDao.save(author1);
-        authorDao.save(author2);
-        authorDao.save(author3);
-        authorDao.save(author4);
+        authorDao.add(author1);
+        authorDao.add(author2);
+        authorDao.add(author3);
+        authorDao.add(author4);
 
-        bookDao.save(new Book(author1, "Hobbit"));
-        bookDao.save(new Book(author1, "Lord of the Rings"));
-        bookDao.save(new Book(author2, "Hitchhiker's Guide to the Galaxy"));
-        bookDao.save(new Book(author3, "A Game of Thrones"));
-        bookDao.save(new Book(author3, "Tuf Voyaging"));
-        bookDao.save(new Book(author4, "Dune"));
+        bookDao.add(new Book(author1, "Hobbit"));
+        bookDao.add(new Book(author1, "Lord of the Rings"));
+        bookDao.add(new Book(author2, "Hitchhiker's Guide to the Galaxy"));
+        bookDao.add(new Book(author3, "A Game of Thrones"));
+        bookDao.add(new Book(author3, "Tuf Voyaging"));
+        bookDao.add(new Book(author4, "Dune"));
     }
 
 }

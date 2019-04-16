@@ -12,27 +12,32 @@ public class AuthorDaoSql implements AuthorDao {
     }
 
     @Override
-    public void save(Author author) {
+    public void add(Author author) {
         try {
-            if (author.getId() == null) {
-                String sql = "INSERT INTO author (first_name, last_name, birth_date) VALUES (?, ?, ?)";
-                PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-                st.setString(1, author.getFirstName());
-                st.setString(2, author.getLastName());
-                st.setDate(3, author.getBirthDate());
-                st.executeUpdate();
-                ResultSet rs = st.getGeneratedKeys();
-                rs.next();
-                author.setId(rs.getInt(1));
-            } else {
-                String sql = "UPDATE author SET first_name = ?, last_name = ?, birth_date = ? WHERE id = ?";
-                PreparedStatement st = conn.prepareStatement(sql);
-                st.setString(1, author.getFirstName());
-                st.setString(2, author.getLastName());
-                st.setDate(3, author.getBirthDate());
-                st.setInt(4, author.getId());
-                st.executeUpdate();
-            }
+            String sql = "INSERT INTO author (first_name, last_name, birth_date) VALUES (?, ?, ?)";
+            PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            st.setString(1, author.getFirstName());
+            st.setString(2, author.getLastName());
+            st.setDate(3, author.getBirthDate());
+            st.executeUpdate();
+            ResultSet rs = st.getGeneratedKeys();
+            rs.next();
+            author.setId(rs.getInt(1));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void update(Author author) {
+        try {
+            String sql = "UPDATE author SET first_name = ?, last_name = ?, birth_date = ? WHERE id = ?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setString(1, author.getFirstName());
+            st.setString(2, author.getLastName());
+            st.setDate(3, author.getBirthDate());
+            st.setInt(4, author.getId());
+            st.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

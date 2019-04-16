@@ -43,7 +43,7 @@ public class BookManager extends Manager {
             return;
         }
 
-        bookDao.save(new Book(author, title));
+        bookDao.add(new Book(author, title));
     }
 
     @Override
@@ -72,7 +72,7 @@ public class BookManager extends Manager {
 
         book.setAuthor(author);
         book.setTitle(title);
-        bookDao.save(book);
+        bookDao.update(book);
     }
 
     @Override

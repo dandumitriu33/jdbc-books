@@ -3,7 +3,9 @@ package com.codecool.books.model;
 import java.util.List;
 
 public interface AuthorDao {
-    void save(Author author);
+    void add(Author author);
+
+    void update(Author author);
 
     Author get(int id);
 

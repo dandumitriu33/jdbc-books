@@ -1,13 +1,15 @@
 package com.codecool.books.model;
 
+import javax.sql.DataSource;
+import javax.xml.crypto.Data;
 import java.sql.*;
 import java.util.List;
 
 public class AuthorDaoJDBC implements AuthorDao {
-    private Connection conn;
+    private DataSource dataSource;
 
-    public AuthorDaoJDBC(Connection conn) {
-        this.conn = conn;
+    public AuthorDaoJDBC(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
     @Override

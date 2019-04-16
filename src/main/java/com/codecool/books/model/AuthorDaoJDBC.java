@@ -4,10 +4,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AuthorDaoSql implements AuthorDao {
+public class AuthorDaoJDBC implements AuthorDao {
     private Connection conn;
 
-    public AuthorDaoSql(Connection conn) {
+    public AuthorDaoJDBC(Connection conn) {
         this.conn = conn;
     }
 

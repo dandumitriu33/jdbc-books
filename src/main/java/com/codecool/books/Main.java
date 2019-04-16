@@ -48,21 +48,21 @@ public class Main {
 
     private void setup() throws SQLException {
         ui.printOption('i', "In-memory database");
-        ui.printOption('s', "SQL database");
-        switch (ui.choice("is")) {
+        ui.printOption('j', "JDBC database");
+        switch (ui.choice("ij")) {
             case 'i':
                 ui.println("Using in-memory database");
                 authorDao = new AuthorDaoInMemory();
                 bookDao = new BookDaoInMemory();
                 createInitialData();
                 break;
-            case 's':
+            case 'j':
                 // TODO: connection parameters
                 ui.println("Connecting to SQL database");
                 String url = "jdbc:postgresql:books";
                 Connection conn = DriverManager.getConnection(url, "pawel", "pawel");
-                authorDao = new AuthorDaoSql(conn);
-                bookDao = new BookDaoSql(conn, authorDao);
+                authorDao = new AuthorDaoJDBC(conn);
+                bookDao = new BookDaoJDBC(conn, authorDao);
                 break;
         }
     }

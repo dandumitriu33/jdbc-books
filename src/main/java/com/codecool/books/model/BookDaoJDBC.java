@@ -4,11 +4,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookDaoSql implements BookDao {
+public class BookDaoJDBC implements BookDao {
     private Connection conn;
     private AuthorDao authorDao;
 
-    public BookDaoSql(Connection conn, AuthorDao authorDao) {
+    public BookDaoJDBC(Connection conn, AuthorDao authorDao) {
         this.conn = conn;
         this.authorDao = authorDao;
     }

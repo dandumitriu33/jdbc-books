@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface AuthorDao {
     /**
-     * Add a new object to database
+     * Add a new object to database, and set the new ID
      *
      * @param author a new object, with ID not set yet (null)
      */

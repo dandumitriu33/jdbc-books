@@ -53,9 +53,9 @@ See the JDBC tutorials linked at the end of this document for details.
 
 ## 4. Add Books
 
-Implement the second type of object (`Book`). A Book should contain an autor and title:
+Implement the second type of object (`Book`). A Book should contain an author (as `Author` object) and a title:
 ```java
-public Book(Author author, String title ) {
+public Book(Author author, String title) {
     this.author = author;
     this.title = title;
 }

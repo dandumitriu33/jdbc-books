@@ -65,6 +65,23 @@ There is some skeleton code for Books (e.g. initial data) written and commented 
 
 You will need to create appropriate classes. Start with an in-memory DAO, then add SQL support. You will need to add an appropriate table to `books.sql`, then reload it in Postgres.
 
+## 5. [bonus] Generic interface
+
+Make the interface generic. That is, instead of `AuthorDao` and `BookDao` interfaces, define a single interface `Dao<T>` and use it as `Dao<Author>` and `Dao<Book>`. (The implementation classes will still be separate for authors and books.
+
+## 6. [bonus] Use Lombok to reduce repetitive code
+
+The Book and Author class are simple data classes, and there is a lot of boilerplate code. You can use [Project Lombok](https://projectlombok.org/) to generate getters and setters automatically!
+
+Here is a tutorial: [Introduction to Project Lombok](https://www.baeldung.com/intro-to-project-lombok)
+
+You will have to:
+* Add the dependency to `pom.xml` and make sure IntelliJ re-imports it
+* Install Lombok plugin for IntelliJ
+* Then, you can use the decorators
+
+Lombok is not a requirement during your projects, however, it makes for much simpler code.
+
 ## Links
 
 * [Object-relational mapping](https://en.wikipedia.org/wiki/Object-relational_mapping) 

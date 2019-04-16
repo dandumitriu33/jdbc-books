@@ -16,7 +16,6 @@ public class Main {
 
     UserInterface ui;
     AuthorDao authorDao;
-    BookDao bookDao;
 
     Main(UserInterface ui) {
         this.ui = ui;
@@ -37,7 +36,7 @@ public class Main {
                     new AuthorManager(ui, authorDao).run();
                     break;
                 case 'b':
-                    new BookManager(ui, bookDao, authorDao).run();
+                    ui.println("Not implemented yet!");
                     break;
                 case 'q':
                     running = false;
@@ -53,7 +52,6 @@ public class Main {
             case 'i':
                 ui.println("Using in-memory database");
                 authorDao = new AuthorDaoInMemory();
-                bookDao = new BookDaoInMemory();
                 createInitialData();
                 break;
             case 'j':
@@ -62,7 +60,6 @@ public class Main {
                 String url = "jdbc:postgresql:books";
                 Connection conn = DriverManager.getConnection(url, "pawel", "pawel");
                 authorDao = new AuthorDaoJDBC(conn);
-                bookDao = new BookDaoJDBC(conn, authorDao);
                 break;
         }
     }
@@ -81,12 +78,14 @@ public class Main {
         authorDao.add(author3);
         authorDao.add(author4);
 
+        /*
         bookDao.add(new Book(author1, "Hobbit"));
         bookDao.add(new Book(author1, "Lord of the Rings"));
         bookDao.add(new Book(author2, "Hitchhiker's Guide to the Galaxy"));
         bookDao.add(new Book(author3, "A Game of Thrones"));
         bookDao.add(new Book(author3, "Tuf Voyaging"));
         bookDao.add(new Book(author4, "Dune"));
+         */
     }
 
 }

@@ -2,7 +2,9 @@ package com.codecool.books;
 
 import com.codecool.books.model.*;
 import com.codecool.books.view.UserInterface;
+import org.postgresql.ds.PGSimpleDataSource;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -57,14 +59,27 @@ public class Main {
                 createInitialData();
                 break;
             case 'j':
-                // TODO: connection parameters
-                ui.println("Connecting to SQL database");
-                String url = "jdbc:postgresql:books";
-                Connection conn = DriverManager.getConnection(url, "pawel", "pawel");
-                authorDao = new AuthorDaoJDBC(conn);
-                bookDao = new BookDaoJDBC(conn, authorDao);
+                ui.println("Using JDBC");
+                DataSource dataSource = connect();
+                authorDao = new AuthorDaoJDBC(dataSource);
+                bookDao = new BookDaoJDBC(dataSource, authorDao);
                 break;
         }
+    }
+
+    private DataSource connect() throws SQLException {
+        PGSimpleDataSource dataSource = new PGSimpleDataSource();
+
+        // TODO: update database parameters
+        dataSource.setDatabaseName("books");
+        dataSource.setUser("pawel");
+        dataSource.setPassword("pawel");
+
+        ui.println("Trying to connect...");
+        dataSource.getConnection().close();
+        ui.println("Connection OK");
+
+        return dataSource;
     }
 
 

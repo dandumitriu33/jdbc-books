@@ -1,21 +1,23 @@
 package com.codecool.books.model;
 
+import javax.sql.DataSource;
+import javax.xml.crypto.Data;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BookDaoJDBC implements BookDao {
-    private Connection conn;
+    private DataSource dataSource;
     private AuthorDao authorDao;
 
-    public BookDaoJDBC(Connection conn, AuthorDao authorDao) {
-        this.conn = conn;
+    public BookDaoJDBC(DataSource dataSource, AuthorDao authorDao) {
+        this.dataSource = dataSource;
         this.authorDao = authorDao;
     }
 
     @Override
     public void add(Book book) {
-        try {
+        try (Connection conn = dataSource.getConnection()) {
             String sql = "INSERT INTO book (author_id, title) VALUES (?, ?)";
             PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             st.setInt(1, book.getAuthor().getId());
@@ -31,7 +33,7 @@ public class BookDaoJDBC implements BookDao {
 
     @Override
     public void update(Book book) {
-        try {
+        try (Connection conn = dataSource.getConnection()) {
             String sql = "UPDATE book SET author_id = ?, title = ? WHERE id = ?";
             PreparedStatement st = conn.prepareStatement(sql);
             st.setInt(1, book.getAuthor().getId());
@@ -45,7 +47,7 @@ public class BookDaoJDBC implements BookDao {
 
     @Override
     public Book get(int id) {
-        try {
+        try (Connection conn = dataSource.getConnection()) {
             String sql = "SELECT author_id, title FROM book WHERE id = ?";
             PreparedStatement st = conn.prepareStatement(sql);
             st.setInt(1, id);
@@ -68,7 +70,7 @@ public class BookDaoJDBC implements BookDao {
 
     @Override
     public List<Book> getAll() {
-        try {
+        try (Connection conn = dataSource.getConnection()) {
             String sql = "SELECT id, author_id, title FROM book";
             ResultSet rs = conn.createStatement().executeQuery(sql);
             List<Book> result = new ArrayList<>();

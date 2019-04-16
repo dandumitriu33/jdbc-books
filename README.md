@@ -65,6 +65,8 @@ There is some skeleton code for Books (e.g. initial data) written and commented 
 
 You will need to create appropriate classes. Start with an in-memory DAO, then add SQL support. You will need to add an appropriate table to `books.sql`, then reload it in Postgres.
 
+**Hint**: Consider that the code for Books will probably need the DAO for authors (`AuthorDao`) as well, so that it can load Author objects.
+
 ## 5. [bonus] Generic interface
 
 Make the interface generic. That is, instead of `AuthorDao` and `BookDao` interfaces, define a single interface `Dao<T>` and use it as `Dao<Author>` and `Dao<Book>`. (The implementation classes will still be separate for authors and books.

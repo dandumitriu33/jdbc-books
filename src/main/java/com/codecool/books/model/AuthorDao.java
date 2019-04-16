@@ -10,6 +10,4 @@ public interface AuthorDao {
     Author get(int id);
 
     List<Author> getAll();
-
-    void delete(Author author);
 }

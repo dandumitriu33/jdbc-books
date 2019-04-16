@@ -17,10 +17,9 @@ public abstract class Manager {
             ui.printOption('l', "List");
             ui.printOption('a', "Add");
             ui.printOption('e', "Edit");
-            ui.printOption('d', "Delete");
             ui.printOption('q', "Quit");
 
-            switch (ui.choice("laedq")) {
+            switch (ui.choice("laeq")) {
                 case 'l':
                     list();
                     break;
@@ -29,9 +28,6 @@ public abstract class Manager {
                     break;
                 case 'e':
                     edit();
-                    break;
-                case 'd':
-                    delete();
                     break;
                 case 'q':
                     running = false;
@@ -44,5 +40,4 @@ public abstract class Manager {
     protected abstract void list();
     protected abstract void add();
     protected abstract void edit();
-    protected abstract void delete();
 }

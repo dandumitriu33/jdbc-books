@@ -77,16 +77,4 @@ public class AuthorDaoSql implements AuthorDao {
             throw new RuntimeException(e);
         }
     }
-
-    @Override
-    public void delete(Author author) {
-        try {
-            String sql = "DELETE FROM author WHERE ID = ?";
-            PreparedStatement st = conn.prepareStatement(sql);
-            st.setInt(1, author.getId());
-            st.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }

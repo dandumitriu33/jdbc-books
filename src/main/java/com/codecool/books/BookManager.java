@@ -74,15 +74,4 @@ public class BookManager extends Manager {
         book.setTitle(title);
         bookDao.update(book);
     }
-
-    @Override
-    protected void delete() {
-        int id = ui.readInt("Book ID", 0);
-        Book book = bookDao.get(id);
-        if (book == null) {
-            ui.println("Book not found!");
-            return;
-        }
-        bookDao.delete(book);
-    }
 }

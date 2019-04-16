@@ -57,15 +57,4 @@ public class AuthorManager extends Manager {
         author.setBirthDate(birthDate);
         authorDao.update(author);
     }
-
-    @Override
-    protected void delete() {
-        int id = ui.readInt("Author ID", 0);
-        Author author = authorDao.get(id);
-        if (author == null) {
-            ui.println("Author not found!");
-            return;
-        }
-        authorDao.delete(author);
-    }
 }

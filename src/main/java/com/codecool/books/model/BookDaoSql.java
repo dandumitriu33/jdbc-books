@@ -87,16 +87,4 @@ public class BookDaoSql implements BookDao {
             throw new RuntimeException(e);
         }
     }
-
-    @Override
-    public void delete(Book book) {
-        try {
-            String sql = "DELETE FROM book WHERE ID = ?";
-            PreparedStatement st = conn.prepareStatement(sql);
-            st.setInt(1, book.getId());
-            st.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }

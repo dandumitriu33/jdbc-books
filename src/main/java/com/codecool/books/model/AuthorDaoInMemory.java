@@ -27,9 +27,4 @@ public class AuthorDaoInMemory implements AuthorDao {
     public List<Author> getAll() {
         return new ArrayList<>(authors.values());
     }
-
-    @Override
-    public void delete(Author author) {
-        authors.remove(author.getId());
-    }
 }

@@ -27,9 +27,4 @@ public class BookDaoInMemory implements BookDao {
     public List<Book> getAll() {
         return new ArrayList<>(books.values());
     }
-
-    @Override
-    public void delete(Book book) {
-        books.remove(book.getId());
-    }
 }

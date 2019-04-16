@@ -10,6 +10,4 @@ public interface BookDao {
     Book get(int id);
 
     List<Book> getAll();
-
-    void delete(Book book);
 }

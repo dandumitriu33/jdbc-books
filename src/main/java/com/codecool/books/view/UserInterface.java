@@ -1,7 +1,6 @@
 package com.codecool.books.view;
 
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.PrintStream;
 import java.sql.Date;
 import java.util.Scanner;

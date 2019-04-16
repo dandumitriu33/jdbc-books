@@ -2,14 +2,9 @@ package com.codecool.books;
 
 import com.codecool.books.model.Author;
 import com.codecool.books.model.AuthorDao;
-import com.codecool.books.model.AuthorDaoInMemory;
-import com.codecool.books.model.AuthorDaoSql;
 import com.codecool.books.view.UserInterface;
 
-import java.sql.Connection;
 import java.sql.Date;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 
 public class AuthorManager extends Manager {
     AuthorDao authorDao;

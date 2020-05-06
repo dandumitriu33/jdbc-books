@@ -19,13 +19,88 @@ public class AuthorDaoJDBC implements AuthorDao {
 
     @Override
     public void update(Author author) {
-        // TODO
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try{
+            conn = dataSource.getConnection();
+            pstmt = conn.prepareStatement("UPDATE author SET first_name=?, last_name=?, birth_date=? WHERE id=?");
+            pstmt.setString(1, author.getFirstName());
+            pstmt.setString(2, author.getLastName());
+            pstmt.setDate(3, author.getBirthDate());
+            pstmt.setInt(4, author.getId());
+            pstmt.executeUpdate();
+            pstmt.close();
+            conn.close();
+        }
+        catch (SQLException se) {
+            se.printStackTrace();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            try{
+                if(pstmt!=null)
+                    pstmt.close();
+            }catch(SQLException se2){
+            }
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }
+        }
+
     }
 
     @Override
     public Author get(int id) {
-        // TODO
-        return null;
+        Connection conn = null;
+        Statement stmt = null;
+        Author temp = null;
+
+        try {
+            conn = dataSource.getConnection();
+            stmt = conn.createStatement();
+
+            String sql = "SELECT * FROM author";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while(rs.next()) {
+                int idFromDB = rs.getInt("id");
+
+                if (idFromDB==id) {
+                    String first = rs.getString("first_name");
+                    String last = rs.getString("last_name");
+                    Date birthDate = rs.getDate("birth_date");
+                    temp = new Author(first, last, birthDate);
+                    temp.setId(idFromDB);
+                }
+            }
+            rs.close();
+            stmt.close();
+            conn.close();
+        }catch(SQLException se){
+            se.printStackTrace();
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }
+        }
+
+        return temp;
     }
 
     @Override

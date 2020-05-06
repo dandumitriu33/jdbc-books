@@ -1,5 +1,6 @@
 package com.codecool.books.model;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface AuthorDao {
@@ -30,5 +31,5 @@ public interface AuthorDao {
      *
      * @return List of all objects of this type in the database
      */
-    List<Author> getAll();
+    List<Author> getAll() throws SQLException;
 }

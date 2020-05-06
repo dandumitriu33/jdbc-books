@@ -2,6 +2,8 @@ package com.codecool.books;
 
 import com.codecool.books.view.UserInterface;
 
+import java.sql.SQLException;
+
 public abstract class Manager {
     protected UserInterface ui;
 
@@ -9,7 +11,7 @@ public abstract class Manager {
         this.ui = ui;
     }
 
-    public void run() {
+    public void run() throws SQLException {
         boolean running = true;
 
         while (running) {
@@ -37,7 +39,7 @@ public abstract class Manager {
     }
 
     protected abstract String getName();
-    protected abstract void list();
+    protected abstract void list() throws SQLException;
     protected abstract void add();
     protected abstract void edit();
 }

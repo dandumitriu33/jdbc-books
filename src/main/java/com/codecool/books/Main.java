@@ -1,13 +1,14 @@
 package com.codecool.books;
 
-import com.codecool.books.model.*;
+import com.codecool.books.model.Author;
+import com.codecool.books.model.AuthorDao;
+import com.codecool.books.model.AuthorDaoInMemory;
+import com.codecool.books.model.AuthorDaoJDBC;
 import com.codecool.books.view.UserInterface;
 import org.postgresql.ds.PGSimpleDataSource;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
 import java.sql.Date;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Main {
@@ -67,10 +68,11 @@ public class Main {
     private DataSource connect() throws SQLException {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
 
-        // TODO: update database parameters
-        dataSource.setDatabaseName("books");
-        dataSource.setUser("pawel");
-        dataSource.setPassword("pawel");
+        dataSource.setServerName("localhost");
+        dataSource.setPortNumber(5432);
+        dataSource.setDatabaseName("jdbcbooks");
+        dataSource.setUser("codecooler");
+        dataSource.setPassword("123456");
 
         ui.println("Trying to connect...");
         dataSource.getConnection().close();

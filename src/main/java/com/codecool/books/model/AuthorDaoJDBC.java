@@ -1,8 +1,8 @@
 package com.codecool.books.model;
 
 import javax.sql.DataSource;
-import javax.xml.crypto.Data;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AuthorDaoJDBC implements AuthorDao {
@@ -29,8 +29,48 @@ public class AuthorDaoJDBC implements AuthorDao {
     }
 
     @Override
-    public List<Author> getAll() {
-        // TODO
-        return null;
+    public List<Author> getAll() throws SQLException {
+        List<Author> result = new ArrayList<>();
+        Connection conn = null;
+        Statement stmt = null;
+
+        try {
+            conn = dataSource.getConnection();
+            stmt = conn.createStatement();
+
+            String sql = "SELECT * FROM author";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while(rs.next()) {
+                int id = rs.getInt("id");
+                String first = rs.getString("first_name");
+                String last = rs.getString("last_name");
+                Date birthDate = rs.getDate("birth_date");
+
+                Author temp = new Author(first, last, birthDate);
+                temp.setId(id);
+                result.add(temp);
+            }
+            rs.close();
+            stmt.close();
+            conn.close();
+        }catch(SQLException se){
+            se.printStackTrace();
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }
+        }
+        return result;
     }
 }

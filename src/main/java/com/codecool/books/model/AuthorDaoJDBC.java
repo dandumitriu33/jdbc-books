@@ -85,7 +85,6 @@ public class AuthorDaoJDBC implements AuthorDao {
                 se.printStackTrace();
             }
         }
-
     }
 
     @Override

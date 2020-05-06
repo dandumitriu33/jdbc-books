@@ -45,16 +45,42 @@ public class BookDaoJDBC implements BookDao {
                 se.printStackTrace();
             }
         }
-
-
-
-
-
     }
 
     @Override
     public void update(Book book) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
 
+        try {
+            conn = dataSource.getConnection();
+            pstmt = conn.prepareStatement("UPDATE book SET title=?, author_id=? WHERE id=?");
+            pstmt.setString(1, book.getTitle());
+            pstmt.setInt(2, book.getAuthor().getId());
+            pstmt.setInt(3, book.getId());
+            pstmt.executeUpdate();
+            pstmt.close();
+            conn.close();
+        }
+        catch (SQLException se) {
+            se.printStackTrace();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            try{
+                if(pstmt!=null)
+                    pstmt.close();
+            }catch(SQLException se2){
+            }
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }
+        }
     }
 
     @Override

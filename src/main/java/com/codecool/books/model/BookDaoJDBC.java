@@ -14,6 +14,41 @@ public class BookDaoJDBC implements BookDao {
 
     @Override
     public void add(Book book) {
+        Connection conn = null;
+        Statement stmt = null;
+
+        try {
+            conn = dataSource.getConnection();
+            stmt = conn.createStatement();
+
+            String sql = "INSERT INTO book (title, author_id) VALUES ('"+ book.getTitle() +"', "+ book.getAuthor().getId() +")";
+            stmt.executeUpdate(sql);
+            stmt.close();
+            conn.close();
+        }
+        catch (SQLException se) {
+            se.printStackTrace();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }
+        }
+
+
+
+
 
     }
 
@@ -24,7 +59,54 @@ public class BookDaoJDBC implements BookDao {
 
     @Override
     public Book get(int id) {
-        return null;
+        Connection conn = null;
+        Statement stmt = null;
+        Book tempBook = null;
+
+        try {
+            conn = dataSource.getConnection();
+            stmt = conn.createStatement();
+
+            String sql = "SELECT book.id as bookId, title as bookTitle, first_name as authorFirst, last_name as authorLast, birth_date as authorBirthDate, author_id as authorId FROM book JOIN author author on book.author_id = author.id";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while(rs.next()) {
+                int bookIdFromDB = rs.getInt("bookId");
+
+                if (bookIdFromDB == id) {
+                    String title = rs.getString("bookTitle");
+                    String first = rs.getString("authorFirst");
+                    String last = rs.getString("authorLast");
+                    Date birthDate = rs.getDate( "authorBirthDate");
+                    int authorId = rs.getInt("authorId");
+
+                    Author tempAuthor = new Author(first, last, birthDate);
+                    tempAuthor.setId(authorId);
+                    tempBook = new Book(tempAuthor, title);
+                    tempBook.setId(bookIdFromDB);
+                }
+            }
+            rs.close();
+            stmt.close();
+            conn.close();
+        }catch(SQLException se){
+            se.printStackTrace();
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }
+        }
+        return tempBook;
     }
 
     @Override

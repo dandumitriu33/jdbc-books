@@ -27,4 +27,13 @@ public class AuthorDaoInMemory implements AuthorDao {
     public List<Author> getAll() {
         return new ArrayList<>(authors.values());
     }
+
+    @Override
+    public int getAuthorIdByLastName(String lastName) {
+        for (Author authorIter :
+                authors.values()) {
+            if (authorIter.getLastName().equals(lastName)) return authorIter.getId();
+        }
+        return 0;
+    }
 }

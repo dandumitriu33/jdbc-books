@@ -34,13 +34,16 @@ public class BookManager extends Manager {
 
     @Override
     protected void add() {
-        String title = ui.readString("Title ", "X");
+        String title = ui.readString("Title", "X");
         String firstName = ui.readString("Author first name", "Y");
         String lastName = ui.readString("Author last name", "Z");
         Date birthDate = ui.readDate("Author birth date", Date.valueOf("1900-01-01"));
         Author author = new Author(firstName, lastName, birthDate);
         authorDao.add(author);
-        bookDao.add(new Book(author, title));
+        int authorId = authorDao.getAuthorIdByLastName(lastName);
+        author.setId(authorId);
+        Book temp = new Book(author, title);
+        bookDao.add(temp);
     }
 
     @Override

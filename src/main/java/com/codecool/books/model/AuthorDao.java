@@ -32,4 +32,6 @@ public interface AuthorDao {
      * @return List of all objects of this type in the database
      */
     List<Author> getAll() throws SQLException;
+
+    int getAuthorIdByLastName(String lastName);
 }

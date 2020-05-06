@@ -16,7 +16,6 @@ public class AuthorDaoJDBC implements AuthorDao {
     public void add(Author author) {
         Connection conn = null;
         Statement stmt = null;
-        final int TEST_ID = 51;
 
         try{
             conn = dataSource.getConnection();
@@ -181,5 +180,42 @@ public class AuthorDaoJDBC implements AuthorDao {
             }
         }
         return result;
+    }
+
+    public int getAuthorIdByLastName(String authorLastName) {
+        Connection conn = null;
+        Statement stmt = null;
+        int authorID = 0;
+
+        try {
+            conn = dataSource.getConnection();
+            stmt = conn.createStatement();
+            String sql = "SELECT id FROM author WHERE last_name='"+authorLastName+"'";
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()) {
+                authorID = rs.getInt("id");
+            }
+            rs.close();
+            stmt.close();
+            conn.close();
+        }catch(SQLException se){
+            se.printStackTrace();
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }
+        }
+        return authorID;
+
     }
 }

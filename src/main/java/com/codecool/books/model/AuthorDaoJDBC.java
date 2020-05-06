@@ -14,7 +14,41 @@ public class AuthorDaoJDBC implements AuthorDao {
 
     @Override
     public void add(Author author) {
-        // TODO
+        Connection conn = null;
+        Statement stmt = null;
+        final int TEST_ID = 51;
+
+        try{
+            conn = dataSource.getConnection();
+            stmt = conn.createStatement();
+
+            String sql = "INSERT INTO author (first_name, last_name, birth_date) VALUES (\'" + author.getFirstName() + "\', \'" +author.getLastName()+ "\', \'" + (Date) author.getBirthDate()+ "\')";
+            stmt.executeUpdate(sql);
+
+
+            stmt.close();
+            conn.close();
+        }
+        catch (SQLException se) {
+            se.printStackTrace();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){
+            }
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }
+        }
+
     }
 
     @Override
